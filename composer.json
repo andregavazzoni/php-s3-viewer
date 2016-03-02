@@ -15,5 +15,11 @@
         "psr-4": {
             "AmazonS3\\": "src/AmazonS3"
         }
+    },
+    "extra": {
+        "heroku": {
+            "document-root": "web",
+            "index-document": "index.php"
+        }
     }
 }
