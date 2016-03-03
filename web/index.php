@@ -1,7 +1,9 @@
 <?php
 require_once __DIR__.'/../vendor/autoload.php';
+
 use Silex\Application;
 use AmazonS3\AmazonS3;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 $app = new Application();
 $app['debug'] = true;
@@ -14,7 +16,7 @@ $app->get('/', function(Application $app){
     return $app['twig']->render('index.html.twig');
 });
 
-$app->get('/list-buckets', function() {
+$app->get('/list-buckets', function(Application $app) {
         $s3 = new AmazonS3();
         $buckets = $s3->listBuckets();
         
@@ -22,9 +24,7 @@ $app->get('/list-buckets', function() {
             $links[] = sprintf('<a href="/list-objects/%s">%s</a>', $bucket, $bucket);
         }
 
-        $links[] = '<a href="javascript:history.back()">Back</a>';
-
-        return implode('<br/>', $links);
+        return $app->json($links);
     }
 );
 
