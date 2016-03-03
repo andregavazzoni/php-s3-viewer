@@ -6,10 +6,12 @@ use AmazonS3\AmazonS3;
 $app = new Application();
 $app['debug'] = true;
 
-$app->get('/', function(){
-    $s3 = new AmazonS3();
-    
-    return 'Hello darkness, my old friend.';
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/views',
+));
+
+$app->get('/', function(Application $app){
+    return $app['twig']->render('index.html.twig');
 });
 
 $app->get('/list-buckets', function() {

@@ -1,0 +1,28 @@
+<html lang="pt_BR">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PHP S3 Viewer</title>
+        {% block stylesheets %}
+            <link href="{{ app.request.basepath }}/assets/css/foundation.css" rel="stylesheet" type="text/css"></link>
+        {% endblock %}
+    </head>
+    <body>
+        <div class="top-bar">
+            <div class="row">
+                <div class="top-bar-left">
+                    PHP S3 Browser
+                </div>
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        <li><input placeholder="Search" type="search"></li>
+                        <li><button type="button" class="button">Search</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

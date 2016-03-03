@@ -20,3 +20,5 @@ A simple S3 browser
   ```sh
     php -S localhost:8081 -t web
   ```
+  
+Or, you can deploy it on Heroku
