@@ -3,7 +3,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Silex\Application;
 use AmazonS3\AmazonS3;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 $app = new Application();
 $app['debug'] = true;
@@ -21,9 +20,10 @@ $app->get('/list-buckets', function(Application $app) {
         $buckets = $s3->listBuckets();
         
         foreach ($buckets as $bucket) {
-            $links[] = sprintf('<a href="/list-objects/%s">%s</a>', $bucket, $bucket);
+            $link = str_replace('.', '%2E', $bucket);
+            $links[] = sprintf('<a href="/list-objects/%s">%s</a>', $link, $bucket);
         }
-
+        
         return $app->json($links);
     }
 );
@@ -47,6 +47,6 @@ $app->get('/list-objects/{bucketName}/{path}', function($bucketName, $path) {
         
         return implode('<br/>', $links);
     }
-)->value('path', '')->assert('path', '.*');
+)->value('path', '')->assert('path', '.*')->assert('bucketName', '.*');
 
 $app->run();

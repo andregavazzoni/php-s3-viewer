@@ -3,6 +3,12 @@ var s3Viewer = {
         var _this = s3Viewer;
 
         _this.loadBuckets();
+
+        jQuery('.sidebar').on('click', '.dir-tree > li > a', function (event) {
+            event.preventDefault();
+            
+            _this.loadObjects(jQuery(this).attr('href'));
+        });
     },
     loadBuckets: function () {
         jQuery.ajax({
@@ -15,9 +21,12 @@ var s3Viewer = {
             });
         });
     },
-    loadObjects: function () {
+    loadObjects: function (url) {
         jQuery.ajax({
-            
+            url: url,
+            dataType: 'json'
+        }).done(function (data) {
+            console.log(data);
         });
     }
 };
